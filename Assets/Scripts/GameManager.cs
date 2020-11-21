@@ -10,8 +10,9 @@ public class GameManager : MonoBehaviour
     public static float soundVolume, musicVolume;
     [HideInInspector] public int levelLength, levelTwistyness;
     public AudioClip victorySound, defeatSound;
-    public GameObject levelManager, mainmenuPanel, mainCamera, gameHudPanel, levelCompletePanel, gameOverPanel, pausePanel;
+    public GameObject levelManager, mainmenuPanel, mainCamera, gameHudPanel, levelCompletePanel, gameOverPanel, pausePanel, menuPanel;
     public GameObject leftGoButton, leftLeftButton, leftRightButton, rightGoButton, rightLeftButton, rightRightButton;
+    public Slider SoundVolumeSlider, MusicVolumeSlider;
     public Text menuHiScore, leftPoints, rightPoints, hudHiScore, lcScore, lcHiScore, goScore, goHiScore;
     public enum State { MENU, INIT, PLAY, LEVELCOMPLETE, GAMEOVER};
     [HideInInspector] public int leftScore, rightScore, savedHiScore, hiScore, gameScore;
@@ -165,6 +166,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         RenderSettings.skybox.SetFloat("_Rotation", Time.time * bgRot);
+        GetComponent<AudioSource>().volume = soundVolume;
         
         switch (_state)
         {
@@ -247,6 +249,10 @@ public class GameManager : MonoBehaviour
             Paused = !Paused;
             pausePanel.SetActive(Paused);
         }
+        else
+        {
+            menuPanel.SetActive(true);
+        }
     }
     public void GoBAll()
     {
@@ -307,9 +313,13 @@ public class GameManager : MonoBehaviour
     {
         soundVolume = PlayerPrefs.GetFloat("soundvolume");
         musicVolume = PlayerPrefs.GetFloat("musicvolume");
+        SoundVolumeSlider.value = soundVolume;
+        MusicVolumeSlider.value = soundVolume;
     }
     public void SetVolumeSettings()
     {
+        soundVolume = SoundVolumeSlider.value;
+        musicVolume = MusicVolumeSlider.value;
         PlayerPrefs.SetFloat("soundvolume", soundVolume);
         PlayerPrefs.SetFloat("musicvolume", musicVolume);
     }

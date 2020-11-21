@@ -9,12 +9,12 @@ public class MusicPlayController : MonoBehaviour
 
     private void Start()
     {
-        _player = GetComponent<AudioSource>();
-        _player.volume = 1f;
+        _player = GetComponent<AudioSource>();        
     }
 
     private void Update()
     {
+        _player.volume = GameManager.musicVolume;
         if (!_player.isPlaying)
         {
             _player.clip = song[Random.Range(0, song.Length)];
