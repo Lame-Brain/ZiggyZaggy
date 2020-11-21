@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 722059148}
   - component: {fileID: 722059150}
-  - component: {fileID: 722059149}
   m_Layer: 0
   m_Name: Camera2
   m_TagString: Untagged
@@ -42,7 +41,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -75,14 +74,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &722059149
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 722059147}
-  m_Enabled: 1
 --- !u!1 &1708812566
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,7 +259,7 @@ GameObject:
   - component: {fileID: -8553006143031133412}
   m_Layer: 0
   m_Name: Ball2
-  m_TagString: Untagged
+  m_TagString: Ball2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -331,7 +322,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c20161d0eae3e04e9a3dd31cb849eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 3
+  _targetRotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!1 &8841961623141037046
 GameObject:
   m_ObjectHideFlags: 0
