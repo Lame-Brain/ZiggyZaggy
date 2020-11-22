@@ -337,5 +337,7 @@ public class GameManager : MonoBehaviour
     public void ClearHiScore()
     {
         PlayerPrefs.DeleteKey("highscore");
+        hiScore = 0;
+        CalulateHighScore();
     }
 }
