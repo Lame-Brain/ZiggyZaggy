@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public static float soundVolume, musicVolume;
     [HideInInspector] public int levelLength, levelTwistyness;
     public AudioClip victorySound, defeatSound;
-    public GameObject levelManager, mainmenuPanel, mainCamera, gameHudPanel, levelCompletePanel, gameOverPanel, pausePanel, menuPanel;
+    public GameObject levelManager, mainmenuPanel, mainCamera, gameHudPanel, levelCompletePanel, gameOverPanel, pausePanel, menuPanel, seObject;
     public GameObject leftGoButton, leftLeftButton, leftRightButton, rightGoButton, rightLeftButton, rightRightButton;
     public Slider SoundVolumeSlider, MusicVolumeSlider;
     public Text menuHiScore, leftPoints, rightPoints, hudHiScore, lcScore, lcHiScore, goScore, goHiScore;
@@ -119,6 +119,8 @@ public class GameManager : MonoBehaviour
                 _state = State.INIT;
                 break;
             case State.PLAY:
+                leftScore = 0;
+                rightScore = 0;
                 bgRot = Random.Range(1.0f, 5.0f);
                 mainmenuPanel.SetActive(false);
                 gameHudPanel.SetActive(true);
@@ -167,7 +169,8 @@ public class GameManager : MonoBehaviour
     {
         RenderSettings.skybox.SetFloat("_Rotation", Time.time * bgRot);
         GetComponent<AudioSource>().volume = soundVolume;
-        
+        seObject.GetComponent<AudioSource>().volume = soundVolume;
+
         switch (_state)
         {
             case State.MENU:
@@ -184,16 +187,15 @@ public class GameManager : MonoBehaviour
                     if (_rightPlaying) rightScore++;
                     if (!_leftPlaying) leftScore--;
                     if (!_rightPlaying) rightScore--;
-                    
-                    hudHiScore.text = "High Score: " + hiScore;
-                    if (_leftPlaying) leftPoints.text = "<color=white>Red Ball: " + leftScore + "</color>";
-                    if (!_leftPlaying) leftPoints.text = "<color=red>Red Ball: " + leftScore + "</color>";
-                    if (_rightPlaying) rightPoints.text = "<color=white>Blue Ball: " + rightScore + "</color>";
-                    if (!_rightPlaying) rightPoints.text = "<color=red>Blue Ball: " + rightScore + "</color>";
-                    if (!_leftPlaying && !_rightPlaying) SwitchState(State.GAMEOVER);
                     period = 0f;
                 }
                 if(!_paused) period += Time.deltaTime;
+                hudHiScore.text = "High Score: " + hiScore;
+                if (_leftPlaying) leftPoints.text = "<color=white>Red Ball: " + leftScore + "</color>";
+                if (!_leftPlaying) leftPoints.text = "<color=red>Red Ball: " + leftScore + "</color>";
+                if (_rightPlaying) rightPoints.text = "<color=white>Blue Ball: " + rightScore + "</color>";
+                if (!_rightPlaying) rightPoints.text = "<color=red>Blue Ball: " + rightScore + "</color>";
+                if (!_leftPlaying && !_rightPlaying) SwitchState(State.GAMEOVER);
                 break;
             case State.LEVELCOMPLETE:
                 break;
@@ -311,10 +313,19 @@ public class GameManager : MonoBehaviour
     }
     public void GetVolumeSettings()
     {
-        soundVolume = PlayerPrefs.GetFloat("soundvolume");
-        musicVolume = PlayerPrefs.GetFloat("musicvolume");
+        bool exist = PlayerPrefs.HasKey("soundvolume");
+        if (exist)
+        {
+            soundVolume = PlayerPrefs.GetFloat("soundvolume");
+            musicVolume = PlayerPrefs.GetFloat("musicvolume");
+        }
+        else
+        {
+            soundVolume = 1f;
+            musicVolume = 1f;
+        }
         SoundVolumeSlider.value = soundVolume;
-        MusicVolumeSlider.value = soundVolume;
+        MusicVolumeSlider.value = musicVolume;
     }
     public void SetVolumeSettings()
     {
