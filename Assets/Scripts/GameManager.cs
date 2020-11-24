@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
                 gameScore = 0;
                 hiScore = 0;
                 CalulateHighScore();
-                levelLength = 50; levelTwistyness = 15;
+                levelLength = 50; levelTwistyness = 15; LevelSpeed = 2.25f;
                 LEVEL.BuildLevel(0, 0, 1, levelLength, levelTwistyness);
                 LEVEL.BuildLevel(100, 0, 2, levelLength, levelTwistyness);
                 _leftPlaying = true;
